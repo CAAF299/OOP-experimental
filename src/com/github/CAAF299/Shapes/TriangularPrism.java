@@ -1,6 +1,6 @@
 package com.github.CAAF299.Shapes;
 
-public class TriangularPrism extends 3dShape{
+public class TriangularPrism extends GeometricShape{
 
 	TriangularPrism(double base, double height){
 
@@ -10,12 +10,11 @@ public class TriangularPrism extends 3dShape{
 
 	@Override
 
-	public void Calculable(double volume){
+	public double calcVolume(){
 
 
-	volume =  getBase() * getHeight();
+	return  getBase() * getHeight();
 
-	return volume;
 
 	}
 

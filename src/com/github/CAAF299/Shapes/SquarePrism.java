@@ -1,20 +1,21 @@
-package com.github.CAAF299.shapes;
+package com.github.CAAF299.Shapes;
 
-public class SquarePrism extends 3dShape{
+public class SquarePrism extends GeometricShape{
 
 
-	SquarePrism(double base, double height ){
+	SquarePrism(double base, double height){
 
-	super(base, height)
+	super(base, height);
 
 
 	}
 
 	@Override
 
-	public void Calculable(double volume){
+	public double calcVolume(){
 
-	volume = (1/3) * getBase() * getHeight();
+	return (1.0/3.0) * getBase() * getHeight();
+
 
 	}
 
