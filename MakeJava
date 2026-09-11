@@ -1,0 +1,47 @@
+#!/bin/bash
+
+set -ueo pipefail
+
+IFS=$'\n\t'
+
+# Script Name : MakeJava
+# Description : Makes a Java project folder, ready to use.
+# Version : 0.0.3
+# Author : github.com/CAAF299
+#
+#
+#
+
+
+#ANSI color codes for fancy terminal text.
+
+G='\e[=32m'
+RC='\e[=0m'
+
+project_name=""
+handle=""
+
+echo -e "\nEnter the name of your new ${G}Java Project${RC}..."
+read project_name
+
+echo -e "\nEnter the name of your handle"
+read handle
+
+
+mkdir -p "$project_name"/{"/bin","/src/com/github/$handle/$project_name/"}
+
+
+cat<<END > "$project_name/src/com/github/$handle/$project_name/Main.java"
+package com.github.$handle.$project_name
+
+public class Main{
+
+public static void main(String[] args){
+
+   }
+
+}
+END
+
+
+	echo -e "\n ${G}Done !${RC}"
