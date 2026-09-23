@@ -30,14 +30,16 @@ public Map<String, String> handleException(MethodArgumentNotValidException e){
 
     Map <String, String> errors = new HashMap<>();
     
-    
-    e.getBindingResult().getAllErrors().forEach((error) -> {
-    
-    String field = ((FieldError) error).getField();
-    
-    String errorMsg = error.getDefaultMessage();
-    
-    errors.put(field, errorMsg);
+     for(FieldError error : e.getBindingResult().getFieldErrors()){
+ 
+ 
+     String fieldName = error.getField();
+     String errorMessage = error.getDefaultMessage();
+ 
+     
+     errors.put(fieldName, errorMessage);
+ } 
+  
     
     });
         
