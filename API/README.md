@@ -3,10 +3,27 @@ the various knowledge that i gathered with springboot, which
 recieves json payloads in a temporary space in memory instead of 
 being connected with a database.
 
-For now, this small project lacks portability. I'll add that feature in
-the future.
+
+\\PREREQUISITES:\\
+
+-Java 17 (or higher)
+-Docker
+
+ Running with docker: 
+
+1. Build the Docker Image:
+
+docker build -t spring-api
 
 
+2. Run the container.
+
+docker run -p 8080:8080 spring-api 
+
+
+  Running locally: 
+
+./mvnw spring-boot:run 
 
 
 \\SAMPLE COMMANDS FOR COMMUNICATING WITH THE API VIA CURL : \\ 
@@ -21,7 +38,6 @@ OUTPUT :
 This is an API running on port 8080.
 
 
-
 2. Creating a resource.
 
 curl -X POST http://localhost:8080/api/users -H "Content-Type: application/json" -d '{"age": 19, "name": "Alexander"}'
@@ -30,7 +46,7 @@ OUTPUT:
 
 {"adult":true,"age":19,"id":122,"name":"Alexander"}
 
-PS : The id varies because it's randomly generated.
+NOTE : The id varies because it's randomly generated.
 
 
 3. Fetching a resource
@@ -66,7 +82,7 @@ OUTPUT :
 
 [{"adult":true,"age":29,"id":122,"name":"Alexander"}, {"adult":true,"age":37,"id":131,"name":"Maurice"}]
 
-If you have multiple entries, it'll list them in an array.
+If you have multiple entries, it'll list them in this array.
 
 
 6. Delete an entry : 
