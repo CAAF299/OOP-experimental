@@ -21,7 +21,7 @@ public class UserObject{
     private String name;
     
     
-    @Min(value = 18, message = "User must be atleast 18 years old.")
+
     @Max(value = 40, message = "User can't be more than 40 year's old.")
     @Positive(message = "Please provide a valid age.")
     private int age;
