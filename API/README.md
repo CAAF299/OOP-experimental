@@ -1,5 +1,5 @@
 This is an experimental, basic API that is the combination of 
-the various knowledge that i gathered with springboot, which 
+the various fundamentals that i learned with Java and HTTP with Spring Boot, which 
 recieves json payloads in a temporary space in memory instead of 
 being connected with a database.
 
@@ -9,9 +9,37 @@ being connected with a database.
 -Java 17 (or higher)
 -Docker
 
- Running with docker: 
 
-1. Build the Docker Image:
+\\Initial setup - Prepare the environment :
+
+1. Clone the repository and go inside the OOP-experimental folder:
+
+git clone --depth 1 --single-branch --branch feat/API-attempt-2 --no-checkout https://github.com/CAAF299/OOP-experimental
+
+cd OOP-experimental/
+
+
+2. Download the API folder and unpack it:
+
+git sparse-checkout set API
+
+git checkout
+
+
+3. Go inside the API folder an build the .JAR
+
+cd API/
+
+./mvnw clean package
+
+
+
+\\Running the API : 
+
+Method 1 - Docker
+
+
+1. Build the container
 
 docker build -t spring-api
 
@@ -21,7 +49,8 @@ docker build -t spring-api
 docker run -p 8080:8080 spring-api 
 
 
-  Running locally: 
+Method 2 - local execution
+
 
 ./mvnw spring-boot:run 
 
@@ -88,3 +117,27 @@ If you have multiple entries, it'll list them in this array.
 6. Delete an entry : 
 
 curl -X DELETE http://localhost:8080/api/users/131
+
+
+
+7. Invalid POST (validation Error):
+
+
+curl -i -X POST http://localhost:8080/api/users -H "Content-Type: application/json" -d '{"name": "", "age": -4}'
+
+OUTPUT : 
+
+HTTP/1.1 400 Bad Request
+
+
+8. Fetching a non-existent resource:
+
+
+curl -i http://localhost:8080/api/users/1535
+
+OUTPUT : 
+
+HTTP/1.1 404 Not Found
+
+
+
