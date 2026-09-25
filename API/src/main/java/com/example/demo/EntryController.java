@@ -1,13 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package com.example.demo;
 
-/**
- *
- * @author carol
- */
+package com.example.demo;
 
 
 
@@ -23,7 +15,6 @@ import org.springframework.http.*;
 
 import java.util.Map;
 import java.util.HashMap;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.Collection;
 
 
@@ -38,22 +29,23 @@ private static final Logger log = LoggerFactory.getLogger(EntryController.class)
 
     
     
-@Value("${api.port}")
+@Value("${server.port:8080}")
 int port;
 
 @GetMapping("/info")
 
-public String Hello(){
+public ResponseEntity<String> greet (){
 
-       
-    return "This is an API running on port " + port;
-}
+
+    return ResponseEntity.status(HttpStatus.OK).body("Running on port " + port);
+
+} 
 
 @PostMapping
 
-public ResponseEntity<UserObject> makeUser(@Valid @RequestBody UserObject postUser, Integer id){
+public ResponseEntity<UserObject> makeUser(@Valid @RequestBody UserObject postUser){
 
-    id = 1;
+    Integer id = 1;
 
  while(DB.containsKey(id)){   
     
@@ -64,12 +56,12 @@ postUser.setId(id);
 
 
 
-postUser.setisAdult(postUser.getAge() >= 18);
+postUser.setAdult(postUser.getAge() >= 18);
 
 DB.put(id , postUser);
 
 log.info("Created new user with the following ID : {}", id);
-return new ResponseEntity<>(postUser, HttpStatus.CREATED);
+return ResponseEntity.status(HttpStatus.CREATED).body(postUser);
     
 }
 
@@ -88,7 +80,7 @@ public ResponseEntity<UserObject> editUser(@Valid @RequestBody UserObject putUse
     }
     
     
-    putUser.setisAdult(putUser.getAge() >= 18);
+    putUser.setAdult(putUser.getAge() >= 18);
     
     putUser.setId(id);
     
@@ -98,14 +90,14 @@ public ResponseEntity<UserObject> editUser(@Valid @RequestBody UserObject putUse
     
     
     log.info("Resource succesfully modified of the id {}", id );
-    return new ResponseEntity(putUser, HttpStatus.OK);
+    return ResponseEntity.status(HttpStatus.OK).body(putUser);
 
    
 }
 
 @DeleteMapping("/{id}")
 
-public ResponseEntity<UserObject> deleteUser (@PathVariable Integer id){
+public ResponseEntity<?> deleteUser (@PathVariable Integer id){
 
 
     if(!DB.containsKey(id)){
@@ -140,7 +132,7 @@ public ResponseEntity<UserObject> deleteUser (@PathVariable Integer id){
         
         
         log.info("Succesfully retrieved user of id {}", id);
-        return new ResponseEntity(DB.get(id), HttpStatus.OK);
+        return ResponseEntity.ok(DB.get(id));
         
     }
 
