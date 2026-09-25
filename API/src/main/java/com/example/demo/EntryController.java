@@ -29,11 +29,11 @@ import java.util.Collection;
 
 @RestController
 @RequestMapping("api/users")
-public class EntryManager{
+public class EntryController{
 
 Map <Integer, UserObject> DB = new HashMap<>();
 
-private static final Logger log = LoggerFactory.getLogger(EntryManager.class);
+private static final Logger log = LoggerFactory.getLogger(EntryController.class);
 
 
     
@@ -51,13 +51,17 @@ public String Hello(){
 
 @PostMapping
 
-public ResponseEntity<UserObject> makeUser(@Valid @RequestBody UserObject postUser){
+public ResponseEntity<UserObject> makeUser(@Valid @RequestBody UserObject postUser, Integer id){
 
+    id = 1;
 
-Integer id = ThreadLocalRandom.current().nextInt(100, 1000);
-
+ while(DB.containsKey(id)){   
+    
+++id;
+ }
 
 postUser.setId(id);
+
 
 
 postUser.setisAdult(postUser.getAge() >= 18);
