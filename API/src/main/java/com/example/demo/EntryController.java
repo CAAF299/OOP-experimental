@@ -14,15 +14,17 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.*;
 
 import java.util.Map;
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.Collection;
-
+import java.util.concurrent.atomic.AtomicInteger;
 
 @RestController
 @RequestMapping("api/users")
 public class EntryController{
 
-Map <Integer, UserObject> DB = new HashMap<>();
+Map <Integer, UserObject> DB = new ConcurrentHashMap<>();
+
+private final AtomicInteger idGenerator = new AtomicInteger(1);
 
 private static final Logger log = LoggerFactory.getLogger(EntryController.class);
 
@@ -45,12 +47,7 @@ public ResponseEntity<String> greet (){
 
 public ResponseEntity<UserObject> makeUser(@Valid @RequestBody UserObject postUser){
 
-    Integer id = 1;
-
- while(DB.containsKey(id)){   
-    
-++id;
- }
+int id = idGenerator.getAndIncrement();
 
 postUser.setId(id);
 
