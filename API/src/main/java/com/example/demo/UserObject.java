@@ -2,7 +2,6 @@ package com.example.demo;
 
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
@@ -79,7 +78,7 @@ public class UserObject{
     
     }
     
-    public void setisAdult(boolean isAdult){
+    public void setAdult(boolean isAdult){
     
     this.isAdult = isAdult;
     
