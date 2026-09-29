@@ -41,8 +41,9 @@ Method 1 - Docker
 
 1. Build the container
 
-docker build -t spring-api
+docker build -t spring-api .
 
+the dot represents the current directory, which is API/
 
 2. Run the container.
 
