@@ -6,11 +6,15 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
 
 
+
+
+@DynamoDbBean
 public class UserObject{
 
-    
     
     private Integer id;
     
@@ -33,6 +37,7 @@ public class UserObject{
     
     
     
+    @DynamoDbPartitionKey
     public Integer getId(){
     
     return id;
