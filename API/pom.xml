@@ -73,11 +73,28 @@
         <artifactId>aws-lambda-java-events</artifactId>
         <version>3.11.3</version>
     </dependency>
+    
+    
 </dependencies>
         
 	<build>
 		<plugins>
-			<plugin>
+                    
+                    <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-shade-plugin</artifactId>
+    <version>3.5.0</version>
+    <executions>
+        <execution>
+            <phase>package</phase>
+            <goals>
+                <goal>shade</goal>
+            </goals>
+        </execution>
+    </executions>
+</plugin>
+                    
+                  	<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
