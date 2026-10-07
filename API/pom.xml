@@ -65,10 +65,10 @@
             <version>3.11.3</version>
         </dependency>
         <dependency>
-    <groupId>com.amazonaws.serverless</groupId>
-    <artifactId>aws-serverless-java-container-springboot3</artifactId>
-    <version>2.0.3</version>
-</dependency>
+            <groupId>com.amazonaws.serverless</groupId>
+            <artifactId>aws-serverless-java-container-springboot3</artifactId>
+            <version>2.0.3</version>
+        </dependency>
         
     </dependencies>
         
@@ -87,8 +87,11 @@
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                             <transformers>
-                                <transformer implementation="org.springframework.boot.maven.PropertiesMergingResourceTransformer">
-                                    <resource>META-INF/spring.factories</resource>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                                    <resource>META-INF/spring.handlers</resource>
+                                </transformer>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                                    <resource>META-INF/spring.schemas</resource>
                                 </transformer>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
                                     <resource>META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports</resource>
@@ -102,7 +105,6 @@
                 </executions>
             </plugin>
 
-
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -111,5 +113,7 @@
                 </configuration>
             </plugin>
         </plugins>
+    
+        
     </build>
 </project>
