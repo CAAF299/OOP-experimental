@@ -25,7 +25,6 @@ public class EntryController {
     private final AtomicInteger idGenerator = new AtomicInteger(1);
     private static final Logger log = LoggerFactory.getLogger(EntryController.class);
 
- 
     
     @Value("${server.port:8080}")
     int port;
@@ -33,7 +32,7 @@ public class EntryController {
     
     
     public EntryController(DynamoDbEnhancedClient enhancedClient) {
-        this.dataTable = enhancedClient.table("users", TableSchema.fromBean(UserObject.class));
+        this.dataTable = enhancedClient.table("dataTable", TableSchema.fromBean(UserObject.class));
     }
 
     
@@ -45,18 +44,15 @@ public class EntryController {
 
     
     
-    @PostMapping
+   @PostMapping
     public ResponseEntity<UserObject> makeUser(@Valid @RequestBody UserObject postUser) {
-        int id = idGenerator.getAndIncrement();
-        postUser.setId(id);
-        postUser.setAdult(postUser.getAge() >= 18);
+    int id = (int) (System.currentTimeMillis() & 0xfffffff);
+    postUser.setId(id);
+    postUser.setAdult(postUser.getAge() >= 18);
 
-        dataTable.putItem(postUser);
-
-        log.info("Created new user with the following ID : {}", id);
-        return ResponseEntity.status(HttpStatus.CREATED).body(postUser);
-    }
-
+    dataTable.putItem(postUser);
+    return ResponseEntity.status(HttpStatus.CREATED).body(postUser);
+}
     
     
     @PutMapping("/{id}")
