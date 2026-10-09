@@ -19,6 +19,7 @@ import software.amazon.awssdk.enhanced.dynamodb.Key;
 
 @RestController
 @RequestMapping("api/users")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class EntryController {
 
     private final DynamoDbTable<UserObject> dataTable;
